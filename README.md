@@ -15,7 +15,7 @@ BTC-Verify automates the three-day verification process I developed while verify
 
 ## Current Status
 
-✅ **Phase 1 Complete:** GPP signature verification working and tested
+**Phase 1 Complete:** GPP signature verification working and tested
 
 ## Quick Start
 
