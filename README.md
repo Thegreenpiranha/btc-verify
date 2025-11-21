@@ -50,7 +50,7 @@ Status: PASS
 
 ## Roadmap
 
-- [x] **Phase 1:** GPG signature verification ✅ COMPLETE
+- [x] **Phase 1:** GPG signature verification 
 - [ ] **Phase 2:** Build automation framework
 - [ ] **Phase 3:** Binary comparison and reporting
 - [ ] **Phase 4:** Multi-wallet support
