@@ -14,6 +14,23 @@ BTC-Verify automates the three-day verification process I developed while verify
 
 🚧 **In Development** - Building GPG verification automation
 
+## Quick Start
+
+### Verify GPG Signatures
+```powershell
+
+# Clone this repo
+git clone https://github.com/Thegreenpiranha/btc-verify.git
+cd btc-verify
+
+# Run verification on Sparrow Wallet
+powershell -ExecutionPolicy Bypass -File src\verify-gpg.ps1 -RepoUrl "https://github.com/sparrowwallet/sparrow.git" -Tag "2.3.1"
+```
+
+### Example Output
+
+Script will verify GPG signatures and report PASS/FAIL status.
+
 ## Planned Features
 
 - [ ] Automated GPG signature verification
