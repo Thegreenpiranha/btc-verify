@@ -34,9 +34,15 @@ mkdir -p "$WORK_DIR"
 echo "Step 1: Cloning repository..."
 cd "$WORK_DIR"
 if [ ! -d "source" ]; then
-    git clone "$REPO_URL" source
+    git clone --recurse-submodules "$REPO_URL" source
 fi
 cd source
+
+# Update submodules if they exist
+if [ -f .gitmodules ]; then
+    echo "Initializing submodules..."
+    git submodule update --init --recursive
+fi
 
 # Try different tag formats
 git checkout "$VERSION" 2>/dev/null || \
