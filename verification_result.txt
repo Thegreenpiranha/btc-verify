@@ -1,0 +1,15 @@
+object d82283950f5ff3b2116e705f931c6e89e5fdd0be
+type commit
+tag v27.0
+tagger fanquake <fanquake@gmail.com> 1713198605 +0100
+
+Bitcoin Core 27.0 final
+
+Tree-SHA512: 5dd8c6adaab154699f8ad9a5bda26de54901d3d1d09034a5a6775a37f12b44274d2d5ce6e1a527a6c211b56a75fe154f3ccb37bcbc39882be8299a4f127bfe30
+gpg: Signature made Mon Apr 15 17:30:05 2024 GMTDT
+gpg:                using RSA key CFB16E21C950F67FA95E558F2EEB9F5CC09526C1
+gpg: Good signature from "Michael Ford (bitcoin-otc) <fanquake@gmail.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: E777 299F C265 DD04 7930  70EB 944D 35F9 AC3D B76A
+     Subkey fingerprint: CFB1 6E21 C950 F67F A95E  558F 2EEB 9F5C C095 26C1

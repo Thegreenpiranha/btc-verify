@@ -1,0 +1,112 @@
+#!/bin/bash
+# Build Verification Script
+# Usage: ./build-verify.sh <config-file> <version>
+
+set -e
+
+CONFIG_FILE=$1
+VERSION=$2
+
+if [ -z "$CONFIG_FILE" ] || [ -z "$VERSION" ]; then
+WORK_DIR="builds/${NAME// /_}_${VERSION}"
+mkdir -p "$WORK_DIR"
+cd "$WORK_DIR"
+#!/bin/bash
+# Build Verification Script
+# Usage: ./build-verify.sh <config-file> <version>
+
+set -e
+
+CONFIG_FILE=$1
+VERSION=$2
+
+if [ -z "$CONFIG_FILE" ] || [ -z "$VERSION" ]; then
+    echo "Usage: $0 <config-file> <version>"
+    echo "Example: $0 configs/sparrow.json 2.3.1"
+    exit 1
+fi
+
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "Error: Config file not found: $CONFIG_FILE"
+    exit 1
+fi
+
+echo "=== BTC-Verify: Build Verification ==="
+echo "Config: $CONFIG_FILE"
+echo "Version: $VERSION"
+echo ""
+
+# Parse JSON config (requires jq)
+if ! command -v jq &> /dev/null; then
+    echo "Error: jq is required but not installed"
+    echo "Install with: apt-get install jq (Linux) or brew install jq (Mac)"
+    exit 1
+fi
+
+NAME=$(jq -r '.name' "$CONFIG_FILE")
+REPO_URL=$(jq -r '.repo_url' "$CONFIG_FILE")
+BUILD_COMMANDS=$(jq -r '.build_commands[]' "$CONFIG_FILE")
+RELEASE_URL=$(jq -r '.release_url_template' "$CONFIG_FILE" | sed "s/{version}/$VERSION/g")
+
+echo "Project: $NAME"
+echo "Building version: $VERSION"
+echo ""
+
+# Create working directory
+WORK_DIR="builds/${NAME// /_}_${VERSION}"
+mkdir -p "$WORK_DIR"
+cd "$WORK_DIR"
+
+# Clone repository
+echo "Step 1: Cloning repository..."
+git clone "$REPO_URL" source
+cd source
+git checkout "$VERSION" 2>/dev/null || git checkout "v$VERSION" 2>/dev/null || {
+    echo "Error: Version $VERSION not found"
+    exit 1
+}
+
+echo "✓ Source code checked out"
+echo ""
+
+# Build from source
+echo "Step 2: Building from source..."
+echo "This may take several minutes..."
+echo ""
+
+for cmd in $BUILD_COMMANDS; do
+    echo "Running: $cmd"
+    eval $cmd || {
+        echo "Error: Build command failed: $cmd"
+        exit 1
+    }
+done
+
+echo ""
+echo "✓ Build completed"
+echo ""
+
+# Download official release
+echo "Step 3: Downloading official release..."
+cd ../..
+wget -q --show-progress "$RELEASE_URL" -O "$WORK_DIR/official-release" || {
+    echo "Error: Could not download official release"
+    echo "URL: $RELEASE_URL"
+    exit 1
+}
+
+echo "✓ Official release downloaded"
+echo ""
+
+# Compare builds
+echo "Step 4: Comparing builds..."
+echo "This is where we'd do byte-by-byte comparison"
+echo "(Full comparison logic coming in next iteration)"
+echo ""
+
+# Generate report
+echo "=== Build Verification Report ==="
+echo "Project: $NAME"
+echo "Version: $VERSION"
+echo "Date: $(date)"
+echo "Status: BUILD COMPLETED (comparison pending)"

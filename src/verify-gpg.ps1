@@ -4,21 +4,20 @@
 param(
     [Parameter(Mandatory=$true)]
     [string]$RepoUrl,
-
+    
     [Parameter(Mandatory=$true)]
     [string]$Tag,
-
+    
     [Parameter(Mandatory=$false)]
-    [string]$KeyId,
-
+    [string]$KeyId = ""
 )
 
-Write-Host "=== BTC-Verify: GPG Signature Verfication ===" -ForegroundColor Cyan
+Write-Host "=== BTC-Verify: GPG Signature Verification ===" -ForegroundColor Cyan
 Write-Host "Repository: $RepoUrl"
 Write-Host "Tag: $Tag"
 Write-Host ""
 
-# Create temp directory 
+# Create temp directory
 $TempDir = "temp_verify_" + (Get-Random)
 New-Item -ItemType Directory -Path $TempDir | Out-Null
 Set-Location $TempDir
@@ -29,25 +28,25 @@ try {
     git clone $RepoUrl repo 2>&1 | Out-Null
     Set-Location repo
 
-    # Fetch GPG key if provided 
-    if ($KeyId) {
-       Write-Host "Fetching GPG key: $KeyId" -ForegroundColor Yellow
-       gpg --keyserver keyserver.unbuntu.com --recv-keys $KeyId 2>&1 | Out-Null
+    # Fetch GPG key if provided
+    if ($KeyId -ne "") {
+        Write-Host "Fetching GPG key: $KeyId" -ForegroundColor Yellow
+        gpg --keyserver keyserver.ubuntu.com --recv-keys $KeyId 2>&1 | Out-Null
     }
-  
-    # verify tag signature 
+
+    # Verify tag signature
     Write-Host ""
-    Write-Host "Verifying tag signature for: $Tag" -ForgroundColor Yellow
+    Write-Host "Verifying tag signature for: $Tag" -ForegroundColor Yellow
     $VerifyOutput = git tag -v $Tag 2>&1 | Out-String
 
-    # Check result 
+    # Check result
     if ($VerifyOutput -match "Good signature") {
-       Write-Host "SUCCESS: Valid GPG signature found" -ForegroundColor Green
-       $VerifyOutput -split "`n" | Where-Object { $_ -match "Good signature" }
-       $Result = "PASS"
+        Write-Host "SUCCESS: Valid GPG signature found" -ForegroundColor Green
+        $VerifyOutput -split "`n" | Where-Object { $_ -match "Good signature" }
+        $Result = "PASS"
     } else {
         Write-Host "FAILED: No valid signature found" -ForegroundColor Red
-        Write_Host $VerifyOutput
+        Write-Host $VerifyOutput
         $Result = "FAIL"
     }
 
@@ -63,4 +62,4 @@ try {
     # Cleanup
     Set-Location ..\..
     Remove-Item -Recurse -Force $TempDir -ErrorAction SilentlyContinue
-}        
+}
