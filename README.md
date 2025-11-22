@@ -127,7 +127,7 @@ This tool was built to solve a real problem in Bitcoin security verification. Co
 
 Built by Sean from Bitesize Media - Bitcoin privacy research and verification.
 
-**Why This Matters**: Reproducible builds are the gold standard for verifying that distributed binaries contain no hidden modifications. This tool makes that verification accessible to more users and documents the real challenges involved.
+Reproducible builds are the gold standard for verifying that distributed binaries contain no hidden modifications. This tool makes that verification accessible to more users and documents the real challenges involved.
 
 ## License
 
