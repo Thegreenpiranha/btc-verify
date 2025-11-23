@@ -155,4 +155,4 @@ MIT
 
 **Technical Skills:** TypeScript, Nostr protocol (NIP-18), Git branching
 
-**Status:** Code complete, ready for PR submission
+**Status:** Pull Request submitted - [PR #679](https://github.com/CodyTseng/jumble/pull/679)
