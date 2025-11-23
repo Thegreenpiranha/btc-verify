@@ -133,3 +133,26 @@ Reproducible builds are the gold standard for verifying that distributed binarie
 
 MIT
 
+## Project 2: Jumble Relay Discovery Client
+
+**Date:** November 23, 2024  
+**Type:** Code Contribution  
+**Repository:** https://github.com/CodyTseng/jumble  
+**Branch:** `fix/add-pubkey-to-qtag`
+
+### Contribution: Add pubkey parameter to buildQTag()
+
+**Issue Found:** Missing pubkey in 'q' tag generation (TODO comment in codebase)
+
+**Solution Implemented:**
+- Added optional `pubkey` parameter to `buildQTag()` function
+- Follows existing pattern from `buildETag()` implementation  
+- Maintains backward compatibility with optional parameter
+- Implements proper Nostr NIP-18 quote tag format
+
+**Files Modified:**
+- `src/lib/draft-event.ts` - Modified buildQTag function signature
+
+**Technical Skills:** TypeScript, Nostr protocol (NIP-18), Git branching
+
+**Status:** Code complete, ready for PR submission
