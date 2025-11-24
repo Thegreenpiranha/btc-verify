@@ -156,3 +156,24 @@ MIT
 **Technical Skills:** TypeScript, Nostr protocol (NIP-18), Git branching
 
 **Status:** Pull Request submitted - [PR #679](https://github.com/CodyTseng/jumble/pull/679)
+
+### Contribution #2: Add Lightning Invoice Validation
+
+**Date:** November 24, 2024  
+**Branch:** `fix/validate-lightning-invoices`  
+**PR:** [#680](https://github.com/CodyTseng/jumble/pull/680)
+
+**Issue Found:** Missing error handling when parsing Lightning invoices (2 TODO comments)
+
+**Solution Implemented:**
+- Added try-catch blocks to `getAmountFromInvoice()` and `getInvoiceDetails()`
+- Return safe defaults on parse errors (0 amount, null description)
+- Added error logging for debugging
+- Prevents app crashes from malformed invoice strings
+
+**Files Modified:**
+- `src/lib/lightning.ts` - Added validation to both invoice parsing functions
+
+**Impact:** Prevents crashes in `EmbeddedLNInvoice` component and event metadata processing
+
+**Technical Skills:** Error handling, defensive programming, Lightning protocol understanding
