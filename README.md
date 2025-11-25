@@ -176,4 +176,32 @@ MIT
 
 **Impact:** Prevents crashes in `EmbeddedLNInvoice` component and event metadata processing
 
-**Technical Skills:** Error handling, defensive programming, Lightning protocol understanding
+**Technical Skills:** Error handling, defensive programming, Lightning protocol understanding## Project 3: Primal Web Spark - Breez Lightning Wallet
+
+**Date:** November 23-24, 2024  
+**Repository:** https://github.com/dmnyc/primal-web-spark
+
+### Security Research: PIN Validation Bug
+
+**Issue Filed:** [Link to your issue number]  
+**Type:** Security vulnerability analysis
+
+Found and validated bug where background operations crash when attempting to decrypt PIN-protected keys before user enters PIN.
+
+### Code Contribution: Replace Console Logs with Proper Logging
+
+**Date:** November 24, 2024  
+**Branch:** `fix/replace-console-logs-with-logger`  
+**PR:** [#3](https://github.com/dmnyc/primal-web-spark/pull/3)
+
+**Bug Found:** 54 instances of console.log/console.error bypassing project's logging system
+
+**Solution:**
+- Replaced console.log with logInfo() (40 instances)
+- Replaced console.error with logError() (14 instances)
+- Maintains consistency with project patterns
+
+**Files Modified:**
+- `src/lib/spark/sparkBackup.ts`
+
+**Technical Skills:** Code quality, refactoring, Lightning wallet integration
